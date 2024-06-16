@@ -1,10 +1,8 @@
-#go-install
-echo -e "\033[34m[+]Installing GO.. For $OS \033[m"
-echo 'root' | sudo -kS apt install golang -y 
-
 git clone https://github.com/nil0x42/inscope
 echo 'root' | sudo -kS cp inscope/inscope /usr/local/bin 
 rm -rf inscope
 
-go install -v github.com/tomnomnom/anew@latest
-echo 'root' | sudo -kS cp -r ~/go/bin/*  /usr/local/bin/ 
+wget https://github.com/tomnomnom/anew/releases/download/v0.1.1/anew-linux-amd64-0.1.1.tgz
+tar -xvf anew-linux-amd64-0.1.1.tgz
+echo 'root' | sudo -kS mv anew  /usr/local/bin 
+rm -rf anew-linux-amd64-0.1.1.tgz

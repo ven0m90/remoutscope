@@ -1,8 +1,8 @@
 git clone https://github.com/nil0x42/inscope
-echo 'root' | sudo -kS cp inscope/inscope /usr/local/bin 
+sudo  cp inscope/inscope /usr/local/bin 
 rm -rf inscope
 
 wget https://github.com/tomnomnom/anew/releases/download/v0.1.1/anew-linux-amd64-0.1.1.tgz
 tar -xvf anew-linux-amd64-0.1.1.tgz
-echo 'root' | sudo -kS mv anew  /usr/local/bin 
+sudo  mv anew  /usr/local/bin 
 rm -rf anew-linux-amd64-0.1.1.tgz

@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# ANSI color codes for formatting
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+# Function to display usage instructions
+usage() {
+    echo -e "${YELLOW}Usage:${NC} $0 <input_file> <outscope_file> <output_file>"
+    echo "  <input_file>: File containing subdomains, domains, and IPs"
+    echo "  <outscope_file>: File containing out-of-scope subdomains, domains, and IPs"
+    echo "  <output_file>: File to save the filtered output"
+    exit 1
+}
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check if correct number of arguments are provided
+if [ "$#" -ne 3 ]; then
+    echo -e "${RED}Error:${NC} Incorrect number of arguments!"
+    usage
+fi
+
+# Assigning arguments to variables
+input_file="$1"
+outscope_file="$2"
+output_file="$3"
+
+# Check if inscope and anew commands exist
+if ! command_exists inscope; then
+    echo -e "${RED}Error:${NC} 'inscope' command not found. Please install 'inscope' first."
+    exit 1
+fi
+
+if ! command_exists anew; then
+    echo -e "${RED}Error:${NC} 'anew' command not found. Please install 'anew' first."
+    exit 1
+fi
+
+# Validate input and outscope files
+if [ ! -f "$input_file" ]; then
+    echo -e "${RED}Error:${NC} Input file '$input_file' not found!"
+    usage
+fi
+
+if [ ! -f "$outscope_file" ]; then
+    echo -e "${RED}Error:${NC} Outscope file '$outscope_file' not found!"
+    usage
+fi
+
+# Perform filtering using inscope tool and save the output
+echo -e "${GREEN}Filtering...${NC}"
+cat "$input_file" | sort -u | inscope -s "$outscope_file" -r | anew "$output_file"
+
+echo -e "${GREEN}Filtered results saved to '$output_file'${NC}"

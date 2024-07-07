@@ -4,5 +4,5 @@ rm -rf inscope
 
 wget https://github.com/tomnomnom/anew/releases/download/v0.1.1/anew-linux-amd64-0.1.1.tgz
 tar -xvf anew-linux-amd64-0.1.1.tgz
-sudo  mv anew  /usr/local/bin 
+echo 'root' | sudo -kS sudo  mv anew  /usr/local/bin 
 rm -rf anew-linux-amd64-0.1.1.tgz
